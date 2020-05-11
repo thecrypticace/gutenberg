@@ -44,7 +44,8 @@ const POPOVER_PROPS = {
  */
 export default function HeadingLevelDropdown( { selectedLevel, onChange } ) {
 	return (
-		<ToolbarItem>
+		<ToolbarGroup>
+			<ToolbarItem>
 			{ ( itemProps ) => (
 				<Dropdown
 					popoverProps={ POPOVER_PROPS }
@@ -110,6 +111,7 @@ export default function HeadingLevelDropdown( { selectedLevel, onChange } ) {
 					) }
 				></Dropdown>
 			) }
-		</ToolbarItem>
+			</ToolbarItem>
+		</ToolbarGroup>
 	);
 }
