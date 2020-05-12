@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { ToolbarGroup } from '@wordpress/components';
+import { DropdownMenu } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -52,8 +52,7 @@ export default function HeadingLevelDropdown( { selectedLevel, onChange } ) {
 	};
 
 	return (
-		<ToolbarGroup
-			isCollapsed={ true }
+		<DropdownMenu
 			icon={ <HeadingLevelIcon level={ selectedLevel } /> }
 			controls={ HEADING_LEVELS.map( ( index ) =>
 				createLevelControl( index, selectedLevel, onChange )

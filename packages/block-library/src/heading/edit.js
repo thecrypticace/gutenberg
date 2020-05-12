@@ -33,13 +33,15 @@ function HeadingEdit( {
 
 	return (
 		<>
-			<BlockControls>				
-				<HeadingLevelDropdown
-					selectedLevel={ level }
-					onChange={ ( newLevel ) =>
-						setAttributes( { level: newLevel } )
-					}
-				/>				
+			<BlockControls>
+				<ToolbarGroup>
+					<HeadingLevelDropdown
+						selectedLevel={ level }
+						onChange={ ( newLevel ) =>
+							setAttributes( { level: newLevel } )
+						}
+					/>
+				</ToolbarGroup>
 				<AlignmentToolbar
 					value={ align }
 					onChange={ ( nextAlign ) => {

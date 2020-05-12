@@ -44,76 +44,72 @@ const POPOVER_PROPS = {
  */
 export default function HeadingLevelDropdown( { selectedLevel, onChange } ) {
 	return (
-		<ToolbarGroup>
-			<ToolbarItem>
-				{ ( itemProps ) => (
-					<Dropdown
-						popoverProps={ POPOVER_PROPS }
-						renderToggle={ ( { onToggle, isOpen } ) => {
-							const openOnArrowDown = ( event ) => {
-								if ( ! isOpen && event.keyCode === DOWN ) {
-									event.preventDefault();
-									event.stopPropagation();
-									onToggle();
-								}
-							};
+		<ToolbarItem>
+			{ ( itemProps ) => (
+				<Dropdown
+					popoverProps={ POPOVER_PROPS }
+					renderToggle={ ( { onToggle, isOpen } ) => {
+						const openOnArrowDown = ( event ) => {
+							if ( ! isOpen && event.keyCode === DOWN ) {
+								event.preventDefault();
+								event.stopPropagation();
+								onToggle();
+							}
+						};
 
-							return (
-								<Button
-									{ ...itemProps }
-									aria-expanded={ isOpen }
-									aria-haspopup="true"
-									data-experimental-toolbar-item={ true }
-									icon={
-										<HeadingLevelIcon
-											level={ selectedLevel }
-										/>
+						return (
+							<Button
+								{ ...itemProps }
+								aria-expanded={ isOpen }
+								aria-haspopup="true"
+								data-experimental-toolbar-item={ true }
+								icon={
+									<HeadingLevelIcon level={ selectedLevel } />
+								}
+								label={ __( 'Change heading level' ) }
+								onClick={ onToggle }
+								onKeyDown={ openOnArrowDown }
+								showTooltip
+							/>
+						);
+					} }
+					renderContent={ () => (
+						<Toolbar
+							className="block-editor-heading-level-toolbar"
+							__experimentalAccessibilityLabel={ __(
+								'Change heading level'
+							) }
+						>
+							<ToolbarGroup
+								isCollapsed={ false }
+								controls={ HEADING_LEVELS.map(
+									( targetLevel ) => {
+										const isActive =
+											targetLevel === selectedLevel;
+										return {
+											icon: (
+												<HeadingLevelIcon
+													level={ targetLevel }
+													isPressed={ isActive }
+												/>
+											),
+											title: sprintf(
+												// translators: %s: heading level e.g: "1", "2", "3"
+												__( 'Heading %d' ),
+												targetLevel
+											),
+											isActive,
+											onClick() {
+												onChange( targetLevel );
+											},
+										};
 									}
-									label={ __( 'Change heading level' ) }
-									onClick={ onToggle }
-									onKeyDown={ openOnArrowDown }
-									showTooltip
-								/>
-							);
-						} }
-						renderContent={ () => (
-							<Toolbar
-								className="block-editor-heading-level-toolbar"
-								__experimentalAccessibilityLabel={ __(
-									'Change heading level'
 								) }
-							>
-								<ToolbarGroup
-									isCollapsed={ false }
-									controls={ HEADING_LEVELS.map(
-										( targetLevel ) => {
-											const isActive =
-												targetLevel === selectedLevel;
-											return {
-												icon: (
-													<HeadingLevelIcon
-														level={ targetLevel }
-														isPressed={ isActive }
-													/>
-												),
-												title: sprintf(
-													// translators: %s: heading level e.g: "1", "2", "3"
-													__( 'Heading %d' ),
-													targetLevel
-												),
-												isActive,
-												onClick() {
-													onChange( targetLevel );
-												},
-											};
-										}
-									) }
-								/>
-							</Toolbar>
-						) }
-					></Dropdown>
-				) }
-			</ToolbarItem>
-		</ToolbarGroup>
+							/>
+						</Toolbar>
+					) }
+				></Dropdown>
+			) }
+		</ToolbarItem>
 	);
 }
