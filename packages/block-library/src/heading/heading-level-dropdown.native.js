@@ -1,13 +1,7 @@
 /**
- * External dependencies
- */
-import { range } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { Component } from '@wordpress/element';
 import { ToolbarGroup } from '@wordpress/components';
 
 /**
@@ -15,7 +9,7 @@ import { ToolbarGroup } from '@wordpress/components';
  */
 import HeadingLevelIcon from './heading-level-icon';
 
-const HEADING_LEVELS = [1, 2, 3, 4, 5, 6];
+const HEADING_LEVELS = [ 1, 2, 3, 4, 5, 6 ];
 
 /** @typedef {import('@wordpress/element').WPComponent} WPComponent */
 
@@ -36,10 +30,13 @@ const HEADING_LEVELS = [1, 2, 3, 4, 5, 6];
  *
  * @return {WPComponent} The toolbar.
  */
-export default function HeadingLevelDropdown({ selectedLevel, onChange }) {
-	
-	const createLevelControl = ( targetLevel, selectedLevel, onChange ) => {
-		const isActive = targetLevel === selectedLevel;
+export default function HeadingLevelDropdown( { selectedLevel, onChange } ) {
+	const createLevelControl = (
+		targetLevel,
+		currentLevel,
+		onChangeCallback
+	) => {
+		const isActive = targetLevel === currentLevel;
 		return {
 			icon: (
 				<HeadingLevelIcon
@@ -50,9 +47,9 @@ export default function HeadingLevelDropdown({ selectedLevel, onChange }) {
 			// translators: %s: heading level e.g: "1", "2", "3"
 			title: sprintf( __( 'Heading %d' ), targetLevel ),
 			isActive,
-			onClick: () => onChange( targetLevel ),
+			onClick: () => onChangeCallback( targetLevel ),
 		};
-	}
+	};
 
 	return (
 		<ToolbarGroup
@@ -63,5 +60,5 @@ export default function HeadingLevelDropdown({ selectedLevel, onChange }) {
 			) }
 			label={ __( 'Change heading level' ) }
 		/>
-	);	
+	);
 }
