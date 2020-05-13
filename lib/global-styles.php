@@ -138,7 +138,7 @@ function gutenberg_experimental_global_styles_get_user_cpt_id() {
  */
 function gutenberg_experimental_global_styles_get_core() {
 	return gutenberg_experimental_global_styles_get_from_file(
-		dirname( dirname( __FILE__ ) ) . '/experimental-default-theme.json'
+		__DIR__ . '/experimental-default-theme.json'
 	);
 }
 
