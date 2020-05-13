@@ -54,6 +54,8 @@ function NavigationLinkEdit( {
 	rgbBackgroundColor,
 	saveEntityRecord,
 	userCanCreatePages = false,
+	mergeBlocks,
+	onRemove,
 } ) {
 	const { label, opensInNewTab, url, nofollow, description } = attributes;
 	const link = {
@@ -212,11 +214,14 @@ function NavigationLinkEdit( {
 				<div className="wp-block-navigation-link__content">
 					<RichText
 						ref={ ref }
+						identifier="label"
 						className="wp-block-navigation-link__label"
 						value={ label }
 						onChange={ ( labelValue ) =>
 							setAttributes( { label: labelValue } )
 						}
+						onMerge={ mergeBlocks }
+						onRemove={ onRemove }
 						placeholder={ itemLabelPlaceholder }
 						keepPlaceholderOnFocus
 						withoutInteractiveFormatting
