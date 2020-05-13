@@ -23,7 +23,7 @@ import { useBlockEditContext } from '../block-edit';
  *
  * @example
  * ```js
- * const isEnabled = useEditorFeature( 'typography.dropCapEnabled' );
+ * const isEnabled = useEditorFeature( 'typography.dropCap' );
  * ```
  */
 export default function useEditorFeature( featurePath ) {

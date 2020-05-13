@@ -8,14 +8,14 @@
 	},
 	"features": {
 		"typography": {
-			"dropCapEnabled": false
+			"dropCap": false
 		}
 	},
 	"blocks": {
 		"core/paragraph": {
 			"features": {
 				"typography": {
-					"dropCapEnabled": true
+					"dropCap": true
 				}
 			}
 		}
