@@ -9,10 +9,7 @@ import {
 	__experimentalPreviewOptions as PreviewOptions,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
-import {
-	PinnedItems,
-	__experimentalMainDashboardButton as MainDashboardButton,
-} from '@wordpress/interface';
+import { PinnedItems } from '@wordpress/interface';
 
 /**
  * Internal dependencies
@@ -23,7 +20,6 @@ import TemplateSwitcher from '../template-switcher';
 import SaveButton from '../save-button';
 import UndoButton from './undo-redo/undo';
 import RedoButton from './undo-redo/redo';
-import FullscreenModeClose from './fullscreen-mode-close';
 
 const inserterToggleProps = { isPrimary: true };
 
@@ -57,15 +53,6 @@ export default function Header( { openEntitiesSavedStates } ) {
 		[]
 	);
 
-	const { isFullscreenActive } = useSelect(
-		( select ) => ( {
-			isFullscreenActive: select( 'core/edit-site' ).isFeatureActive(
-				'fullscreenMode'
-			),
-		} ),
-		[]
-	);
-
 	const deviceType = useSelect( ( select ) => {
 		return select( 'core/edit-site' ).__experimentalGetPreviewDeviceType();
 	}, [] );
@@ -76,9 +63,6 @@ export default function Header( { openEntitiesSavedStates } ) {
 
 	return (
 		<div className="edit-site-header">
-			<MainDashboardButton.Slot>
-				<FullscreenModeClose />
-			</MainDashboardButton.Slot>
 			<div className="edit-site-header__toolbar">
 				<Inserter
 					position="bottom right"

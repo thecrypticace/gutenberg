@@ -24,7 +24,12 @@ import {
 	__experimentalUseResizeCanvas as useResizeCanvas,
 } from '@wordpress/block-editor';
 import { useViewportMatch } from '@wordpress/compose';
-import { FullscreenMode, InterfaceSkeleton } from '@wordpress/interface';
+import {
+	FullscreenMode,
+	InterfaceSkeleton,
+	AdminMenuToggle,
+	__experimentalMainDashboardButton as MainDashboardButton,
+} from '@wordpress/interface';
 import { EntitiesSavedStates } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 import { PluginArea } from '@wordpress/plugins';
@@ -92,6 +97,9 @@ function Editor( { settings: _settings } ) {
 		<>
 			<EditorStyles styles={ settings.styles } />
 			<FullscreenMode isActive={ isFullscreenActive } />
+			<MainDashboardButton.Slot>
+				{ isFullscreenActive && <AdminMenuToggle /> }
+			</MainDashboardButton.Slot>
 			<SlotFillProvider>
 				<DropZoneProvider>
 					<EntityProvider kind="root" type="site">
