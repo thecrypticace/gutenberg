@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import { Card, CardBody, Spinner, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -13,18 +13,16 @@ import MenuEditor from '../menu-editor';
 
 export default function MenusEditor( { blockEditorSettings } ) {
 	const menus = useSelect( ( select ) => select( 'core' ).getMenus() );
-
 	const [ menuId, setMenuId ] = useState( 0 );
-	const [ stateMenus, setStateMenus ] = useState( null );
+	const { deleteMenu } = useDispatch( 'core' );
 
 	useEffect( () => {
 		if ( menus?.length ) {
-			setStateMenus( menus );
 			setMenuId( menus[ 0 ].id );
 		}
 	}, [ menus ] );
 
-	if ( ! stateMenus ) {
+	if ( ! menus ) {
 		return <Spinner />;
 	}
 
@@ -35,10 +33,12 @@ export default function MenusEditor( { blockEditorSettings } ) {
 					<SelectControl
 						className="edit-navigation-menus-editor__menu-select-control"
 						label={ __( 'Select navigation to edit:' ) }
-						options={ stateMenus.map( ( menu ) => ( {
-							value: menu.id,
-							label: menu.name,
-						} ) ) }
+						options={ menus.map( ( menu ) => {
+							return {
+								value: menu.id,
+								label: menu.name,
+							};
+						} ) }
 						onChange={ ( selectedMenuId ) =>
 							setMenuId( selectedMenuId )
 						}
@@ -49,14 +49,8 @@ export default function MenusEditor( { blockEditorSettings } ) {
 				<MenuEditor
 					menuId={ menuId }
 					blockEditorSettings={ blockEditorSettings }
-					onDeleteMenu={ ( deletedMenu ) => {
-						const newStateMenus = stateMenus.filter( ( menu ) => {
-							return menu.id !== deletedMenu;
-						} );
-						setStateMenus( newStateMenus );
-						if ( newStateMenus.length ) {
-							setMenuId( newStateMenus[ 0 ].id );
-						}
+					onDeleteMenu={ async () => {
+						await deleteMenu( menuId );
 					} }
 				/>
 			) }
