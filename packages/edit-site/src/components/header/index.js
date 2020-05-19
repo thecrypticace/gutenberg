@@ -126,7 +126,6 @@ export default function Header( { openEntitiesSavedStates } ) {
 					ids={ settings.templateIds }
 					templatePartIds={ settings.templatePartIds }
 					activeId={ settings.templateId }
-					homeId={ settings.homeTemplateId }
 					isTemplatePart={
 						settings.templateType === 'wp_template_part'
 					}

@@ -162,7 +162,6 @@ function gutenberg_edit_site_init( $hook ) {
 	$current_template_id = $template_ids['front-page'];
 
 	$settings['templateId']      = $current_template_id;
-	$settings['homeTemplateId']  = $current_template_id;
 	$settings['templateType']    = 'wp_template';
 	$settings['templateIds']     = array_values( $template_ids );
 	$settings['templatePartIds'] = array_values( $template_part_ids );
