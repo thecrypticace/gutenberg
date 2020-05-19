@@ -43,7 +43,6 @@ function TemplateLabel( { template, homeId } ) {
 export default function TemplateSwitcher( {
 	ids,
 	activeId,
-	homeId,
 	isTemplatePart,
 	onActiveIdChange,
 	onActiveTemplatePartIdChange,
@@ -69,6 +68,13 @@ export default function TemplateSwitcher( {
 	const { currentTheme, templates, templateParts } = useSelect(
 		( select ) => {
 			const { getCurrentTheme, getEntityRecords } = select( 'core' );
+
+			const homeId = getEntityRecords( 'postType', 'wp_template', {
+				resolved: true,
+				slug: 'front-page',
+				theme: getCurrentTheme()?.stylesheet,
+			} )?.[ 0 ].id;
+
 			return {
 				currentTheme: getCurrentTheme(),
 				templates: getEntityRecords( 'postType', 'wp_template', {
@@ -96,8 +102,7 @@ export default function TemplateSwitcher( {
 					slug: templatePart.slug,
 				} ) ),
 			};
-		},
-		[ homeId ]
+		}
 	);
 	const [ isAddTemplateOpen, setIsAddTemplateOpen ] = useState( false );
 	return (
