@@ -110,6 +110,7 @@ export function removeItems( kind, name, records ) {
 		items: castArray( records ),
 		kind,
 		name,
+		query: castArray( records ),
 		invalidateCache: false,
 	};
 }

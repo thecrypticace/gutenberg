@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { map, flowRight, omit } from 'lodash';
+import { map, flowRight, omit, remove } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -89,6 +89,19 @@ function items( state = {}, action ) {
 	return state;
 }
 
+const removeQueryItems = () => ( reducer ) => ( state, action ) => {
+	const reconciledState = { ...state };
+	if ( action.type === 'REMOVE_ITEMS' ) {
+		action.query.forEach( ( queryId ) => {
+			remove( reconciledState[ '' ], ( stateQueryId ) => {
+				return queryId === stateQueryId;
+			} );
+		} );
+	}
+	const nextState = reducer( reconciledState, action );
+	return nextState;
+};
+
 /**
  * Reducer tracking queries state, keyed by stable query key. Each reducer
  * query object includes `itemIds` and `requestingPageByPerPage`.
@@ -102,7 +115,7 @@ const queries = flowRight( [
 	// Limit to matching action type so we don't attempt to replace action on
 	// an unhandled action.
 	ifMatchingAction( ( action ) => 'query' in action ),
-
+	removeQueryItems(),
 	// Inject query parts into action for use both in `onSubKey` and reducer.
 	replaceAction( ( action ) => {
 		// `ifMatchingAction` still passes on initialization, where state is
