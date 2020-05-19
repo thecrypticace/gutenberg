@@ -14,7 +14,7 @@ import { useRef, useEffect, useState } from '@wordpress/element';
  * @param {Object}          ref     Reference with the element.
  * @param {string|Function} text    The text to copy.
  * @param {number}          timeout Optional timeout to reset the returned
- *                                  state. 4 seconds by default.
+ *                                  state. 4000 milliseconds by default.
  *
  * @return {boolean} Whether or not the text has been copied. Resets after the
  *                   timeout.
